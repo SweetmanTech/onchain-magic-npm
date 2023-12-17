@@ -9,19 +9,16 @@ const useCreate1155Contract = () => {
   const signer = useEthersSigner();
   const { address } = useAccount() as any;
   const factoryAddress = "0x777777C338d93e2C7adf08D102d45CA7CC4Ed021";
-  const contractName = "ONCHAINMAGIC🪄";
+  const defaultContractName = "ONCHAINMAGIC🪄";
 
   const signTransaction = async (args: any[]) => {
-    console.log("SWEETS SIGNING", factoryAddress);
     const factory = new Contract(factoryAddress, abi, signer);
-    console.log("SWEETS SIGNING", factory);
     const tx = await factory.createContract(...args);
     const response = await tx.wait();
     return response;
   };
 
   const createContract = async (contractArgs?: Create1155ContractArgs) => {
-    console.log("SWEETS CREATING CONTRACT");
     if (!signer)
       return {
         error: "Please connect a wallet client using wagmi / ethers / viem.",
@@ -30,8 +27,7 @@ const useCreate1155Contract = () => {
     try {
       const ipfs =
         contractArgs?.contentURI ||
-        (await store(getZoraBlob(address), contractName, "", address));
-      console.log("SWEETS ipfs", ipfs);
+        (await store(getZoraBlob(address), defaultContractName, contractArgs?.description || "", address));
       const setupActions = contractArgs?.setupActions || ([] as any[]);
       const royaltyConfig = contractArgs?.royaltyConfig || {
         royaltyRecipient: "0x0000000000000000000000000000000000000000",
@@ -40,15 +36,13 @@ const useCreate1155Contract = () => {
       };
       const args = [
         `ipfs://${ipfs}`,
-        contractArgs?.name || contractName,
+        contractArgs?.name || defaultContractName,
         royaltyConfig,
         contractArgs?.defaultAdmin || address,
         setupActions,
       ];
-      console.log("SWEETS args", args);
       await signTransaction(args);
     } catch (error) {
-      console.log("SWEETS error", error);
       return { error };
     }
   };
