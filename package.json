@@ -4,7 +4,10 @@
   "private": false,
   "peerDependencies": {
     "ethers": "^5.0.0",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "@zoralabs/zorb": "^0.1.0",
+    "nft.storage": "^7.1.1",
+    "wagmi": "^1.4.12"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,7 +35,6 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SweetmanTech/onchainmagic-npm.git"

@@ -1,35 +1,33 @@
-import { usePrivy } from "@privy-io/react-auth";
-import { useRouter } from "next/router";
 import { Interface } from "ethers/lib/utils";
-import abi from "../lib/abi/abi-Zora1155CreatorProxy.json";
-import dropAbi from "../lib/abi/abi-ERC1155Drop.json";
-import handleTxError from "../lib/handleTxError";
-import { useDeploy } from "../providers/DeployContext";
-import usePrivySendTransaction from "./usePrivySendTransaction";
-import { chainId } from "../lib/consts";
+import abi from "../lib/abi/Zora1155CreatorProxy.json";
+import dropAbi from "../lib/abi/Zora1155Drop.json";
 import { getZoraBlob, store } from "../lib/ipfs";
-import getZora1155ProxyAddress from "../lib/zora/getZora1155ProxyAddress";
-import { getCreated1155DropsByAddress } from "../lib/zora/getCreated1155DropsByAddress";
-import { useUserProvider } from "../providers/UserProvider";
+import getZora1155ProxyAddress from "../lib/zora/get1155ProxyAddress";
+import { Contract } from "ethers";
+import { useEthersSigner } from "./useEthersSigner";
+import { useAccount, useNetwork } from "wagmi";
 
 const useCreate1155Contract = () => {
-  const { direccionDePago } = useDeploy();
-  const { authenticated } = usePrivy();
-  const { sendTransaction } = usePrivySendTransaction();
-  const factoryAddress = getZora1155ProxyAddress(chainId);
-  const { connectedWallet } = useUserProvider();
-  const { push } = useRouter();
+  const signer = useEthersSigner();
+  const { address } = useAccount();
+  const { chain } = useNetwork();
+  const factoryAddress = getZora1155ProxyAddress(chain?.id);
   const contractName = "S T O R I E S 🪄";
 
+  const signTransaction = async (args) => {
+    const factory = new Contract(factoryAddress, abi, signer);
+    const tx = await factory.createContract(...args);
+    const response = await tx.wait();
+    return response;
+  };
+
   const createContract = async () => {
+    console.log("SWEETS CREATING CONTRACT");
     try {
-      const ipfs = await store(
-        getZoraBlob(direccionDePago),
-        contractName,
-        "",
-        direccionDePago
-      );
-      const adminPermissionArgs = [0, connectedWallet, 2];
+      const ipfs = await store(getZoraBlob(address), contractName, "", address);
+      console.log("SWEETS ipfs", ipfs);
+
+      const adminPermissionArgs = [0, address, 2];
       const minterPermissionArgs = [
         0,
         process.env.NEXT_PUBLIC_FIXED_PRICE_SALE_STRATEGY,
@@ -53,12 +51,15 @@ const useCreate1155Contract = () => {
           royaltyMintSchedule: 0,
           royaltyBPS: 0,
         },
-        direccionDePago,
+        address,
         setupActions,
       ];
+      console.log("SWEETS args", args);
+
       signTransaction(args);
-    } catch (err) {
-      handleTxError(err);
+    } catch (error) {
+      console.log("SWEETS error", error);
+      return { error };
     }
   };
 
