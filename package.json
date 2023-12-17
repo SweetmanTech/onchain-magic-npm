@@ -1,6 +1,6 @@
 {
   "name": "onchain-magic",
-  "version": "0.1.16",
+  "version": "0.1.19",
   "private": false,
   "type": "module",
   "peerDependencies": {
@@ -16,6 +16,7 @@
     "format": "yarn run prettier:fix",
     "lint": "tsc",
     "prettier:fix": "npx prettier --write hooks lib",
+    "release": "yarn run build && changeset publish",
     "simple-build": "yarn clean && yarn format && yarn lint && tsup index.ts --format cjs,esm --dts"
   },
   "eslintConfig": {
