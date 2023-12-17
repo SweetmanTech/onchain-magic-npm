@@ -6,13 +6,13 @@ import getZora1155ProxyAddress from "../lib/zora/get1155ProxyAddress";
 import { Contract } from "ethers";
 import { useAccount, useNetwork } from "wagmi";
 
-const useCreate1155Contract = (signer) => {
-  const { address } = useAccount();
+const useCreate1155Contract = (signer: any) => {
+  const { address } = useAccount() as any;
   const { chain } = useNetwork();
-  const factoryAddress = getZora1155ProxyAddress(chain?.id);
+  const factoryAddress = getZora1155ProxyAddress(chain?.id || 1);
   const contractName = "S T O R I E S 🪄";
 
-  const signTransaction = async (args) => {
+  const signTransaction = async (args: any[]) => {
     const factory = new Contract(factoryAddress, abi, signer);
     const tx = await factory.createContract(...args);
     const response = await tx.wait();

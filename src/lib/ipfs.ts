@@ -8,30 +8,30 @@ const client = new NFTStorage({
   token: process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY || FALLBACK_API_KEY,
 })
 
-export const uploadToIpfs = async (content) => {
+export const uploadToIpfs = async (content: any) => {
   const cid = await client.storeBlob(content)
   return cid
 }
 
-export const getZoraBlob = (address) => {
+export const getZoraBlob = (address: string) => {
   const dataURI = zorbImageDataURI(address)
   const base64String = dataURI.substring("data:image/svg+xml;base64,".length)
   const svgString = atob(base64String)
   return new Blob([svgString], { type: "image/svg+xml" })
 }
 
-export const uploadZorbToIpfs = async (addres) => {
-  const cid = await uploadToIpfs(getZoraBlob(addres))
+export const uploadZorbToIpfs = async (address: string) => {
+  const cid = await uploadToIpfs(getZoraBlob(address))
   return cid
 }
 
-export const createJsonBlob = (obj) => {
+export const createJsonBlob = (obj: any) => {
   const jsonString = JSON.stringify(obj)
 
   return new Blob([jsonString], { type: "application/json" })
 }
 
-export const store = async (file, name, description, zorbAddress) => {
+export const store = async (file: any, name: string, description: string, zorbAddress: string) => {
   const isImage = file.type.includes("image")
   const imageCid = isImage ? await uploadToIpfs(file) : await uploadZorbToIpfs(zorbAddress)
   const nft = {

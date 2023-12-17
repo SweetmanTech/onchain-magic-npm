@@ -7,7 +7,7 @@ const ZORA_TESTNET = ""
 const OP_TESTNET = "0xb0C56317E9cEBc6E0f7A59458a83D0A9ccC3e955"
 const BASE_TESTNET = ""
 
-const getZora1155ProxyAddress = (chainId) => {
+const getZora1155ProxyAddress = (chainId: number) => {
   if (chainId === 1) {
     return ETH_MAINNET
   }
