@@ -5,9 +5,9 @@ import { useAccount } from "wagmi";
 import { useEthersSigner } from "./useEthersSigner";
 
 const useCreate1155Contract = () => {
-  const signer = useEthersSigner()
+  const signer = useEthersSigner();
   const { address } = useAccount() as any;
-  const factoryAddress = "0x777777C338d93e2C7adf08D102d45CA7CC4Ed021"
+  const factoryAddress = "0x777777C338d93e2C7adf08D102d45CA7CC4Ed021";
   const contractName = "ONCHAINMAGIC🪄";
 
   const signTransaction = async (args: any[]) => {

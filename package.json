@@ -15,7 +15,8 @@
     "clean": "rm -rf dist node_modules/.cache",
     "format": "yarn run prettier:fix",
     "lint": "tsc",
-    "prettier:fix": "npx prettier --write hooks lib"
+    "prettier:fix": "npx prettier --write hooks lib",
+    "simple-build": "yarn clean && yarn format && yarn lint && tsup index.ts --format cjs,esm --dts"
   },
   "eslintConfig": {
     "extends": [
