@@ -1,8 +1,8 @@
 import { Interface } from "ethers/lib/utils";
-import abi from "../src/lib/abi/Zora1155CreatorProxy.json";
-import dropAbi from "../src/lib/abi/Zora1155Drop.json";
-import { getZoraBlob, store } from "../src/lib/ipfs";
-import getZora1155ProxyAddress from "../src/lib/zora/get1155ProxyAddress";
+import abi from "../lib/abi/Zora1155CreatorProxy.json";
+import dropAbi from "../lib/abi/Zora1155Drop.json";
+import { getZoraBlob, store } from "../lib/ipfs";
+import getZora1155ProxyAddress from "../lib/zora/get1155ProxyAddress";
 import { Contract } from "ethers";
 import { useAccount, useNetwork } from "wagmi";
 
