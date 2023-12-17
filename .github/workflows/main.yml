@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-dev-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: npm install --frozen-lockfile --prefer-offline
 
       - name: Fix Formatting
         run: yarn format
