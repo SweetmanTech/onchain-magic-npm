@@ -1,21 +1,23 @@
 {
   "name": "onchain-magic",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+  "version": "0.1.20",
+  "private": false,
+  "type": "module",
+  "peerDependencies": {
+    "@zoralabs/zorb": "^0.1.0",
+    "ethers": "^5.0.0",
+    "nft.storage": "^7.1.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "wagmi": "^1.4.12"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "tsup index.ts --format cjs,esm --dts",
+    "clean": "rm -rf dist node_modules/.cache",
+    "format": "yarn run prettier:fix",
+    "lint": "tsc",
+    "prettier:fix": "npx prettier --write hooks lib",
+    "release": "yarn run build && changeset publish",
+    "simple-build": "yarn clean && yarn format && yarn lint && tsup index.ts --format cjs,esm --dts"
   },
   "eslintConfig": {
     "extends": [
@@ -36,8 +38,9 @@
     ]
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "devDependencies": {},
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SweetmanTech/onchainmagic-npm.git"
@@ -52,5 +55,10 @@
   "bugs": {
     "url": "https://github.com/SweetmanTech/onchainmagic-npm/issues"
   },
-  "homepage": "https://github.com/SweetmanTech/onchainmagic-npm#readme"
+  "homepage": "https://github.com/SweetmanTech/onchainmagic-npm#readme",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
 }
