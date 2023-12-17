@@ -2,6 +2,7 @@
   "name": "onchain-magic",
   "version": "0.1.9",
   "private": false,
+  "type": "module",
   "peerDependencies": {
     "@zoralabs/zorb": "^0.1.0",
     "ethers": "^5.0.0",
@@ -10,14 +11,11 @@
     "wagmi": "^1.4.12"
   },
   "scripts": {
-    "clean": "rm -rf dist node_modules/.cache",
     "build": "tsup index.ts --format cjs,esm --dts",
-    "eject": "react-scripts eject",
+    "clean": "rm -rf dist node_modules/.cache",
     "format": "yarn run prettier:fix",
     "lint": "tsc",
-    "prettier:fix": "npx prettier --write hooks lib",
-    "start": "react-scripts start",
-    "test": "react-scripts test"
+    "prettier:fix": "npx prettier --write hooks lib"
   },
   "eslintConfig": {
     "extends": [

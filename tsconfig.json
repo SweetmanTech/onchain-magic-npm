@@ -13,7 +13,7 @@
     "noUncheckedIndexedAccess": true,
     /* If NOT transpiling with TypeScript: */
     "moduleResolution": "Bundler",
-    "module": "ESNext",
+    "module": "ES2020",
     "noEmit": true,
     /* If your code runs in the DOM: */
     "lib": ["es2022", "dom", "dom.iterable"],
