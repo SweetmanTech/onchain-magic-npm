@@ -1,6 +1,6 @@
 {
   "name": "onchain-magic",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "peerDependencies": {
     "ethers": "^5.0.0",
