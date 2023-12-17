@@ -27,7 +27,12 @@ const useCreate1155Contract = () => {
     try {
       const ipfs =
         contractArgs?.contentURI ||
-        (await store(getZoraBlob(address), defaultContractName, contractArgs?.description || "", address));
+        (await store(
+          getZoraBlob(address),
+          defaultContractName,
+          contractArgs?.description || "",
+          address
+        ));
       const setupActions = contractArgs?.setupActions || ([] as any[]);
       const royaltyConfig = contractArgs?.royaltyConfig || {
         royaltyRecipient: "0x0000000000000000000000000000000000000000",
