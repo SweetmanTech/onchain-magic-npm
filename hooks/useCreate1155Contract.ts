@@ -1,9 +1,8 @@
-import { Interface } from "ethers/lib/utils";
 import abi from "../lib/abi/Zora1155CreatorProxy.json";
 import dropAbi from "../lib/abi/Zora1155Drop.json";
 import { getZoraBlob, store } from "../lib/ipfs";
 import getZora1155ProxyAddress from "../lib/zora/get1155ProxyAddress";
-import { Contract } from "ethers";
+import { utils, Contract } from "ethers";
 import { useAccount, useNetwork } from "wagmi";
 
 const useCreate1155Contract = (signer: any) => {
@@ -31,14 +30,12 @@ const useCreate1155Contract = (signer: any) => {
         process.env.NEXT_PUBLIC_FIXED_PRICE_SALE_STRATEGY,
         4,
       ];
-      const minterPermissionCall = new Interface(dropAbi).encodeFunctionData(
-        "addPermission",
-        minterPermissionArgs
-      );
-      const adminPermissionCall = new Interface(dropAbi).encodeFunctionData(
-        "addPermission",
-        adminPermissionArgs
-      );
+      const minterPermissionCall = new utils.Interface(
+        dropAbi
+      ).encodeFunctionData("addPermission", minterPermissionArgs);
+      const adminPermissionCall = new utils.Interface(
+        dropAbi
+      ).encodeFunctionData("addPermission", adminPermissionArgs);
       const setupActions = [adminPermissionCall, minterPermissionCall];
 
       const args = [
