@@ -13,9 +13,12 @@
     "clean": "rm -rf dist node_modules/.cache",
     "build": "tsup index.ts --format cjs,esm --dts",
     "eject": "react-scripts eject",
+    "format": "yarn run prettier:fix",
     "lint": "tsc",
+    "prettier:fix": "npx prettier --write hooks lib",
     "start": "react-scripts start",
     "test": "react-scripts test"
+    
   },
   "eslintConfig": {
     "extends": [
