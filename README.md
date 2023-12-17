@@ -3,7 +3,7 @@
 ## Getting started
 
 ```
-yarn add @zoralabs/zdk
+yarn add onchain-magic
 ```
 
 ```
