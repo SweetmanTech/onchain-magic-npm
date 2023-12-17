@@ -1,6 +1,6 @@
 {
   "name": "onchain-magic",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "private": false,
   "peerDependencies": {
     "@zoralabs/zorb": "^0.1.0",

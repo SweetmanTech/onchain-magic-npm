@@ -8,7 +8,7 @@ const client = new NFTStorage({
   token: process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY || FALLBACK_API_KEY,
 });
 
-export const uploadToIpfs = async (content: any) => {
+export const uploadToIpfs = async (content: any): Promise<string> => {
   const cid = await client.storeBlob(content);
   return cid;
 };
@@ -20,7 +20,7 @@ export const getZoraBlob = (address: string) => {
   return new Blob([svgString], { type: "image/svg+xml" });
 };
 
-export const uploadZorbToIpfs = async (address: string) => {
+export const uploadZorbToIpfs = async (address: string): Promise<string> => {
   const cid = await uploadToIpfs(getZoraBlob(address));
   return cid;
 };
@@ -36,7 +36,7 @@ export const store = async (
   name: string,
   description: string,
   zorbAddress: string
-) => {
+): Promise<string> => {
   const isImage = file.type.includes("image");
   const imageCid = isImage
     ? await uploadToIpfs(file)
