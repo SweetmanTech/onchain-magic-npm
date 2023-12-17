@@ -1,6 +1,6 @@
 {
   "name": "onchain-magic",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "peerDependencies": {
     "@zoralabs/zorb": "^0.1.0",
@@ -18,7 +18,6 @@
     "prettier:fix": "npx prettier --write hooks lib",
     "start": "react-scripts start",
     "test": "react-scripts test"
-    
   },
   "eslintConfig": {
     "extends": [
