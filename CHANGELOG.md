@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.1.20
+
+### Patch Changes
+
+- I add description to Create1155ContractArgs
+
 ## 0.1.19
 
 ### Patch Changes
