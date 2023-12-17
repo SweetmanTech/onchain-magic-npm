@@ -1,18 +1,19 @@
 import abi from "../lib/abi/Zora1155CreatorProxy.json";
-import dropAbi from "../lib/abi/Zora1155Drop.json";
 import { getZoraBlob, store } from "../lib/ipfs";
-import getZora1155ProxyAddress from "../lib/zora/get1155ProxyAddress";
-import { utils, Contract } from "ethers";
-import { useAccount, useNetwork } from "wagmi";
+import { Contract } from "ethers";
+import { useAccount } from "wagmi";
+import { useEthersSigner } from "./useEthersSigner";
 
-const useCreate1155Contract = (signer: any) => {
+const useCreate1155Contract = () => {
+  const signer = useEthersSigner()
   const { address } = useAccount() as any;
-  const { chain } = useNetwork();
-  const factoryAddress = getZora1155ProxyAddress(chain?.id || 1);
-  const contractName = "S T O R I E S 🪄";
+  const factoryAddress = "0x777777C338d93e2C7adf08D102d45CA7CC4Ed021"
+  const contractName = "ONCHAINMAGIC🪄";
 
   const signTransaction = async (args: any[]) => {
+    console.log("SWEETS SIGNING", factoryAddress);
     const factory = new Contract(factoryAddress, abi, signer);
+    console.log("SWEETS SIGNING", factory);
     const tx = await factory.createContract(...args);
     const response = await tx.wait();
     return response;
@@ -23,20 +24,7 @@ const useCreate1155Contract = (signer: any) => {
     try {
       const ipfs = await store(getZoraBlob(address), contractName, "", address);
       console.log("SWEETS ipfs", ipfs);
-
-      const adminPermissionArgs = [0, address, 2];
-      const minterPermissionArgs = [
-        0,
-        process.env.NEXT_PUBLIC_FIXED_PRICE_SALE_STRATEGY,
-        4,
-      ];
-      const minterPermissionCall = new utils.Interface(
-        dropAbi
-      ).encodeFunctionData("addPermission", minterPermissionArgs);
-      const adminPermissionCall = new utils.Interface(
-        dropAbi
-      ).encodeFunctionData("addPermission", adminPermissionArgs);
-      const setupActions = [adminPermissionCall, minterPermissionCall];
+      const setupActions = [] as any[];
 
       const args = [
         `ipfs://${ipfs}`,
@@ -50,8 +38,7 @@ const useCreate1155Contract = (signer: any) => {
         setupActions,
       ];
       console.log("SWEETS args", args);
-
-      signTransaction(args);
+      await signTransaction(args);
     } catch (error) {
       console.log("SWEETS error", error);
       return { error };
