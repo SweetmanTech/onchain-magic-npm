@@ -4,11 +4,9 @@ import dropAbi from "../lib/abi/Zora1155Drop.json";
 import { getZoraBlob, store } from "../lib/ipfs";
 import getZora1155ProxyAddress from "../lib/zora/get1155ProxyAddress";
 import { Contract } from "ethers";
-import { useEthersSigner } from "./useEthersSigner";
 import { useAccount, useNetwork } from "wagmi";
 
-const useCreate1155Contract = () => {
-  const signer = useEthersSigner();
+const useCreate1155Contract = (signer) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
   const factoryAddress = getZora1155ProxyAddress(chain?.id);
