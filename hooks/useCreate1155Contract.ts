@@ -3,6 +3,7 @@ import { getZoraBlob, store } from "../lib/ipfs";
 import { Contract } from "ethers";
 import { useAccount } from "wagmi";
 import { useEthersSigner } from "./useEthersSigner";
+import type { Create1155ContractArgs } from "../lib/types/Create1155ContractArgs";
 
 const useCreate1155Contract = () => {
   const signer = useEthersSigner();
@@ -19,22 +20,29 @@ const useCreate1155Contract = () => {
     return response;
   };
 
-  const createContract = async () => {
+  const createContract = async (contractArgs?: Create1155ContractArgs) => {
     console.log("SWEETS CREATING CONTRACT");
-    try {
-      const ipfs = await store(getZoraBlob(address), contractName, "", address);
-      console.log("SWEETS ipfs", ipfs);
-      const setupActions = [] as any[];
+    if (!signer)
+      return {
+        error: "Please connect a wallet client using wagmi / ethers / viem.",
+      };
 
+    try {
+      const ipfs =
+        contractArgs?.contentURI ||
+        (await store(getZoraBlob(address), contractName, "", address));
+      console.log("SWEETS ipfs", ipfs);
+      const setupActions = contractArgs?.setupActions || ([] as any[]);
+      const royaltyConfig = contractArgs?.royaltyConfig || {
+        royaltyRecipient: "0x0000000000000000000000000000000000000000",
+        royaltyMintSchedule: 0,
+        royaltyBPS: 0,
+      };
       const args = [
         `ipfs://${ipfs}`,
-        contractName,
-        {
-          royaltyRecipient: "0x0000000000000000000000000000000000000000",
-          royaltyMintSchedule: 0,
-          royaltyBPS: 0,
-        },
-        address,
+        contractArgs?.name || contractName,
+        royaltyConfig,
+        contractArgs?.defaultAdmin || address,
         setupActions,
       ];
       console.log("SWEETS args", args);
