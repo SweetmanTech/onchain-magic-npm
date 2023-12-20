@@ -49,7 +49,7 @@ const useCreate1155Contract = () => {
         setupActions,
       ];
       const response = await signTransaction(args);
-      return response
+      return response;
     } catch (error) {
       return { error };
     }
