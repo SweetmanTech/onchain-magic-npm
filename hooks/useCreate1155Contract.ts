@@ -1,14 +1,16 @@
 import abi from "../lib/abi/Zora1155CreatorProxy.json";
 import { getZoraBlob, store } from "../lib/ipfs";
 import { Contract } from "ethers";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import { useEthersSigner } from "./useEthersSigner";
 import type { Create1155ContractArgs } from "../lib/types/Create1155ContractArgs";
+import getFactoryAddress from "../lib/zora/getFactoryAddress";
 
 const useCreate1155Contract = () => {
   const signer = useEthersSigner();
   const { address } = useAccount() as any;
-  const factoryAddress = "0x777777C338d93e2C7adf08D102d45CA7CC4Ed021";
+  const { chain } = useNetwork()
+  const factoryAddress = getFactoryAddress(chain?.id as number);
   const defaultContractName = "ONCHAINMAGIC🪄";
 
   const signTransaction = async (args: any[]) => {

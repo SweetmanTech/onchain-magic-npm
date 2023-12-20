@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.1.22
+
+### Patch Changes
+
+- I init zora lib to handle cases when zora factory is not at deterministic crosschain address.
+
 ## 0.1.21
 
 ### Patch Changes
