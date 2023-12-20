@@ -13,7 +13,10 @@ const useCreate1155Contract = () => {
   const { chain } = useNetwork();
   const factoryAddress = getFactoryAddress(chain?.id as number);
   const defaultContractName = "ONCHAINMAGIC🪄";
-  const factory = useMemo(() => new Contract(factoryAddress, abi, signer), []);
+  const factory = useMemo(
+    () => new Contract(factoryAddress, abi, signer),
+    [signer, factoryAddress]
+  );
 
   const createContract = async (contractArgs?: Create1155ContractArgs) => {
     if (!signer)
@@ -43,14 +46,9 @@ const useCreate1155Contract = () => {
         contractArgs?.defaultAdmin || address,
         setupActions,
       ];
-<<<<<<< HEAD
       const tx = await factory.createContract(...args);
       const receipt = await tx.wait();
       return receipt;
-=======
-      const response = await signTransaction(args);
-      return response;
->>>>>>> aa9d7acfe80cd270c7c8456a9c2c233b23abeaab
     } catch (error) {
       return { error };
     }
