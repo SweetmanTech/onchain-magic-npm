@@ -43,9 +43,14 @@ const useCreate1155Contract = () => {
         contractArgs?.defaultAdmin || address,
         setupActions,
       ];
+<<<<<<< HEAD
       const tx = await factory.createContract(...args);
       const receipt = await tx.wait();
       return receipt;
+=======
+      const response = await signTransaction(args);
+      return response;
+>>>>>>> aa9d7acfe80cd270c7c8456a9c2c233b23abeaab
     } catch (error) {
       return { error };
     }
