@@ -9,7 +9,7 @@ import getFactoryAddress from "../lib/zora/getFactoryAddress";
 const useCreate1155Contract = () => {
   const signer = useEthersSigner();
   const { address } = useAccount() as any;
-  const { chain } = useNetwork()
+  const { chain } = useNetwork();
   const factoryAddress = getFactoryAddress(chain?.id as number);
   const defaultContractName = "ONCHAINMAGIC🪄";
 
