@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.1.21
+
+### Patch Changes
+
+- I init dependencies with nft.storage to ensure applications will automatically download required packages. Originally, this package was a peerDependency. peerDependencies are not automatically installed in npm versions 3 and later.
+
 ## 0.1.20
 
 ### Patch Changes
