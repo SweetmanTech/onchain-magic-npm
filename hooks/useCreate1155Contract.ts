@@ -5,6 +5,7 @@ import { useAccount, useNetwork } from "wagmi";
 import { useEthersSigner } from "./useEthersSigner";
 import type { Create1155ContractArgs } from "../lib/types/Create1155ContractArgs";
 import getFactoryAddress from "../lib/zora/getFactoryAddress";
+import { useMemo } from "react";
 
 const useCreate1155Contract = () => {
   const signer = useEthersSigner();
@@ -12,13 +13,7 @@ const useCreate1155Contract = () => {
   const { chain } = useNetwork();
   const factoryAddress = getFactoryAddress(chain?.id as number);
   const defaultContractName = "ONCHAINMAGIC🪄";
-
-  const signTransaction = async (args: any[]) => {
-    const factory = new Contract(factoryAddress, abi, signer);
-    const tx = await factory.createContract(...args);
-    const response = await tx.wait();
-    return response;
-  };
+  const factory = useMemo(() => new Contract(factoryAddress, abi, signer), []);
 
   const createContract = async (contractArgs?: Create1155ContractArgs) => {
     if (!signer)
@@ -48,8 +43,9 @@ const useCreate1155Contract = () => {
         contractArgs?.defaultAdmin || address,
         setupActions,
       ];
-      const response = await signTransaction(args);
-      return response
+      const tx = await factory.createContract(...args);
+      const receipt = await tx.wait();
+      return receipt;
     } catch (error) {
       return { error };
     }

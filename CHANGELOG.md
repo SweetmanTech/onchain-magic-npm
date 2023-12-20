@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.1.24
+
+### Patch Changes
+
+- I try another attempt to return tx receipt.
+
 ## 0.1.23
 
 ### Patch Changes
