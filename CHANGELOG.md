@@ -1,5 +1,41 @@
 # onchain-magic
 
+## 0.1.26
+
+### Patch Changes
+
+- I update README to include instructions for installation with npm."
+
+## 0.1.25
+
+### Patch Changes
+
+- merge conflicts.
+
+## 0.1.24
+
+### Patch Changes
+
+- I try another attempt to return tx receipt.
+
+## 0.1.23
+
+### Patch Changes
+
+- I return the tx receipt from create 1155 contract hook.
+
+## 0.1.22
+
+### Patch Changes
+
+- I init zora lib to handle cases when zora factory is not at deterministic crosschain address.
+
+## 0.1.21
+
+### Patch Changes
+
+- I init dependencies with nft.storage to ensure applications will automatically download required packages. Originally, this package was a peerDependency. peerDependencies are not automatically installed in npm versions 3 and later.
+
 ## 0.1.20
 
 ### Patch Changes
