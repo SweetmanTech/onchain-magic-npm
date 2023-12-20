@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.1.23
+
+### Patch Changes
+
+- I return the tx receipt from create 1155 contract hook.
+
 ## 0.1.22
 
 ### Patch Changes

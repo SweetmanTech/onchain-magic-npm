@@ -48,7 +48,8 @@ const useCreate1155Contract = () => {
         contractArgs?.defaultAdmin || address,
         setupActions,
       ];
-      await signTransaction(args);
+      const response = await signTransaction(args);
+      return response
     } catch (error) {
       return { error };
     }
