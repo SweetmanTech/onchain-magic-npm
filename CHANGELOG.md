@@ -1,5 +1,17 @@
 # onchain-magic
 
+## 0.1.26
+
+### Patch Changes
+
+- I update README to include instructions for installation with npm."
+
+## 0.1.25
+
+### Patch Changes
+
+- merge conflicts.
+
 ## 0.1.24
 
 ### Patch Changes

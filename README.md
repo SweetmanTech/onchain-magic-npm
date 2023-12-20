@@ -2,7 +2,9 @@
 
 ## Getting started
 
-```
+```bash
+npm install onchain-magic
+# or
 yarn add onchain-magic
 ```
 
@@ -10,7 +12,7 @@ yarn add onchain-magic
 import { useCreate1155Contract } from 'onchain-magic';
 
 const MyComponent = () => {
-    const { createContract } = useCreate1155Contract
+    const { createContract } = useCreate1155Contract()
 
     const handleClick = () => {
         createContract()
