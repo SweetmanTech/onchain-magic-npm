@@ -1,5 +1,47 @@
 # onchain-magic
 
+## 0.2.5
+
+### Patch Changes
+
+- I try adding useZoraFixedPriceSaleStrategy again.
+
+## 0.2.4
+
+### Patch Changes
+
+- I rollback to stable.
+
+## 0.3.0
+
+### Minor Changes
+
+- I init useZoraFixedPriceSaleStrategy hook.
+
+## 0.2.3
+
+### Patch Changes
+
+- I reduce lines for import in use1155Collect.
+
+## 0.2.2
+
+### Patch Changes
+
+- I update ethers import for defaultAbiEncoder.
+
+## 0.2.1
+
+### Patch Changes
+
+- I add use1155Collect to exports for package.
+
+## 0.2.0
+
+### Minor Changes
+
+- init use1155Collect
+
 ## 0.1.26
 
 ### Patch Changes
