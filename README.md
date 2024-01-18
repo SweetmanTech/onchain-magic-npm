@@ -2,6 +2,8 @@
 
 ## Getting started
 
+- Documentation can be found here: [docs.onchainmagic.xyz](https://docs.onchainmagic.xyz)
+
 ```bash
 npm install onchain-magic
 # or

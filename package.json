@@ -1,6 +1,6 @@
 {
   "name": "onchain-magic",
-  "version": "0.1.26",
+  "version": "0.2.6",
   "private": false,
   "type": "module",
   "peerDependencies": {
@@ -65,6 +65,7 @@
   "homepage": "https://github.com/SweetmanTech/onchainmagic-npm#readme",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@types/react": "^18.2.48",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }
