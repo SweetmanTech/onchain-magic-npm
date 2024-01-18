@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.2.6
+
+### Patch Changes
+
+- I read drop price using saleStrategy instead of hard-coded.
+
 ## 0.2.5
 
 ### Patch Changes
