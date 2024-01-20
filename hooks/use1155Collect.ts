@@ -3,6 +3,7 @@ import { BigNumber, Contract, utils } from "ethers";
 import { useEthersSigner } from "./useEthersSigner";
 import abi from "../lib/abi/Zora1155Drop.json";
 import { useZoraFixedPriceSaleStrategy } from "..";
+import getEncodedMinterArgs from "../lib/zora/getEncodedMinterArgs";
 
 const use1155Collect = (zora1155Drop: string, minterAddress: string) => {
   const signer = useEthersSigner();
@@ -11,6 +12,7 @@ const use1155Collect = (zora1155Drop: string, minterAddress: string) => {
     [zora1155Drop, signer]
   );
   const { sale } = useZoraFixedPriceSaleStrategy(minterAddress);
+
 
   const mintWithRewards = async (
     tokenId: string,
@@ -23,10 +25,7 @@ const use1155Collect = (zora1155Drop: string, minterAddress: string) => {
     const value = BigNumber.from(response.pricePerToken.toString()).add(
       zoraFee
     );
-    const minterArguments = utils.defaultAbiCoder.encode(
-      ["address", "string"],
-      [to, comment]
-    );
+    const minterArguments = getEncodedMinterArgs(to, comment)
     const tx = await zora1155DropContract.mintWithRewards(
       minterAddress,
       tokenId,
