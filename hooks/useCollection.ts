@@ -15,9 +15,9 @@ const useCollection = (collectionAddress: string, chainId: number) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
   const defaultMinter =
-  zoraCreatorFixedPriceSaleStrategyAddress[
-    chainId as keyof typeof zoraCreatorFixedPriceSaleStrategyAddress
-  ]  
+    zoraCreatorFixedPriceSaleStrategyAddress[
+      chainId as keyof typeof zoraCreatorFixedPriceSaleStrategyAddress
+    ];
   const { sale } = useZoraFixedPriceSaleStrategy(defaultMinter);
   const { switchNetwork } = useSwitchNetwork();
 
@@ -39,7 +39,12 @@ const useCollection = (collectionAddress: string, chainId: number) => {
       return false;
     }
     const targets = Array(drops.length).fill(collectionAddress);
-    const calldatas = getCalldatas(drops.length, minter, address as string, address as string);
+    const calldatas = getCalldatas(
+      drops.length,
+      minter,
+      address as string,
+      address as string
+    );
     const values = await getValues();
     const totalValue = values.reduce(
       (total, value) => total.add(BigNumber.from(value)),

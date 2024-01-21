@@ -5,8 +5,11 @@ import { zoraUniversalMinterAddress } from "@zoralabs/universal-minter";
 import abi from "../lib/abi/ZoraUniversalMinter.json";
 import { useEthersSigner } from "./useEthersSigner";
 
-const useUniversalMinter = (chainId = base.id) => {
-  const universalMinter = zoraUniversalMinterAddress[chainId];
+const useUniversalMinter = (chainId: number = base.id) => {
+  const universalMinter =
+    zoraUniversalMinterAddress[
+      chainId as keyof typeof zoraUniversalMinterAddress
+    ];
   const signer = useEthersSigner();
 
   const universalMinterContract = useMemo(

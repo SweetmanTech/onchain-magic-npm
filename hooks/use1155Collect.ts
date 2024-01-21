@@ -13,7 +13,6 @@ const use1155Collect = (zora1155Drop: string, minterAddress: string) => {
   );
   const { sale } = useZoraFixedPriceSaleStrategy(minterAddress);
 
-
   const mintWithRewards = async (
     tokenId: string,
     to: string,
@@ -25,7 +24,7 @@ const use1155Collect = (zora1155Drop: string, minterAddress: string) => {
     const value = BigNumber.from(response.pricePerToken.toString()).add(
       zoraFee
     );
-    const minterArguments = getEncodedMinterArgs(to, comment)
+    const minterArguments = getEncodedMinterArgs(to, comment);
     const tx = await zora1155DropContract.mintWithRewards(
       minterAddress,
       tokenId,
