@@ -33,23 +33,28 @@ const useCollection = (collectionAddress: string, chainId: number) => {
     return values;
   };
 
-  const collectAll = async (minter = defaultMinter) => {
+  const collectAll = async (minter: string = defaultMinter) => {
     if (chain?.id !== chainId) {
       switchNetwork?.(chainId);
       return false;
     }
     const targets = Array(drops.length).fill(collectionAddress);
+    console.log("SWEETS TARGETS", targets)
     const calldatas = getCalldatas(
       drops.length,
       minter,
       address as string,
       address as string
     );
+    console.log("SWEETS calldatas", calldatas)
     const values = await getValues();
+    console.log("SWEETS values", values)
     const totalValue = values.reduce(
       (total, value) => total.add(BigNumber.from(value)),
       BigNumber.from(0)
     );
+    console.log("SWEETS totalValue", totalValue)
+
     const response = await mintBatchWithoutFees(
       targets,
       calldatas,
