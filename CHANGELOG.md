@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.4.5
+
+### Patch Changes
+
+- I migrate retrieval of price information from usecollection => useZoraFixedPriceSaleStrategy for more efficient useEffect without infinite loops.
+
 ## 0.4.4
 
 ### Patch Changes
