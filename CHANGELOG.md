@@ -1,5 +1,23 @@
 # onchain-magic
 
+## 0.4.2
+
+### Patch Changes
+
+- I add universalMinter to useUniversalMinter export."
+
+## 0.4.1
+
+### Patch Changes
+
+- I build.
+
+## 0.4.0
+
+### Minor Changes
+
+- 0f7baad: I add package exports for getNFTsForContract, getFormattedDrops, getCalldatas & ZORA_FEE.
+
 ## 0.3.1
 
 ### Patch Changes

@@ -39,7 +39,7 @@ const useUniversalMinter = (chainId: number = base.id) => {
     }
   };
 
-  return { mintBatchWithoutFees };
+  return { mintBatchWithoutFees, universalMinter };
 };
 
 export default useUniversalMinter;
