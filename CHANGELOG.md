@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.4.4
+
+### Patch Changes
+
+- I update useEffect dependency array to be more efficient. remove infinite loops.
+
 ## 0.4.3
 
 ### Patch Changes
