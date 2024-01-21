@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.4.3
+
+### Patch Changes
+
+- I add priceValues export from a useEffect to speed up call to collectAll by gathering price info in the background.
+
 ## 0.4.2
 
 ### Patch Changes
