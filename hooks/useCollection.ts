@@ -6,8 +6,7 @@ import getNFTsForContract from "../lib/alchemy/getNFTsForContract";
 import getFormattedDrops from "../lib/getFormattedDrops";
 import useUniversalMinter from "./useUniversalMinter";
 import getCalldatas from "../lib/getCalldatas";
-import { ZORA_FEE } from "../lib/consts";
-import { useZoraFixedPriceSaleStrategy } from "..";
+import useZoraFixedPriceSaleStrategy from "./useZoraFixedPriceSaleStrategy";
 
 type UseCollectionParams = {
   collectionAddress: string;
@@ -21,7 +20,6 @@ const useCollection = ({
   minterOverride,
 }: UseCollectionParams) => {
   const [drops, setDrops] = useState([] as any);
-  const [priceValues, setPriceValues] = useState([] as string[]);
   const { mintBatchWithoutFees } = useUniversalMinter(chainId);
   const { address } = useAccount();
   const { chain } = useNetwork();
@@ -30,7 +28,10 @@ const useCollection = ({
     zoraCreatorFixedPriceSaleStrategyAddress[
       chainId as keyof typeof zoraCreatorFixedPriceSaleStrategyAddress
     ];
-  const { sale } = useZoraFixedPriceSaleStrategy(minter);
+  const { priceValues } = useZoraFixedPriceSaleStrategy({
+    saleConfig: minter,
+    drops,
+  });
   const { switchNetwork } = useSwitchNetwork();
 
   const collectAll = async () => {
@@ -46,7 +47,7 @@ const useCollection = ({
       address as string
     );
     const totalValue = priceValues.reduce(
-      (total, value) => total.add(BigNumber.from(value)),
+      (total: any, value: any) => total.add(BigNumber.from(value)),
       BigNumber.from(0)
     );
     const response = await mintBatchWithoutFees(
@@ -67,24 +68,6 @@ const useCollection = ({
 
     init();
   }, [collectionAddress, chainId]);
-
-  useEffect(() => {
-    const getValues = async () => {
-      if (drops.length === 0) return;
-      const pricesPromises = drops.map((_: any, index: number) => {
-        const tokenId = BigNumber.from(index + 1);
-        return sale(collectionAddress, tokenId.toString());
-      });
-      const prices = await Promise.all(pricesPromises);
-      const values = prices.map((price) =>
-        price.pricePerToken.add(ZORA_FEE).toString()
-      );
-      setPriceValues(values);
-    };
-
-    getValues();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [minter, drops]);
 
   return { drops, collectAll, priceValues };
 };
