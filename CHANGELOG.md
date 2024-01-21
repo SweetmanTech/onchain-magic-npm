@@ -1,5 +1,18 @@
 # onchain-magic
 
+## 0.3.1
+
+### Patch Changes
+
+- bump
+
+## 0.3.0
+
+### Minor Changes
+
+- I add useUniversalMinter & useCollection hooks.
+- f08891b: I add getEncodedMinterArgs export.
+
 ## 0.2.6
 
 ### Patch Changes
