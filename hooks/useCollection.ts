@@ -22,7 +22,7 @@ const useCollection = ({
 }: UseCollectionParams) => {
   const [drops, setDrops] = useState([] as any);
   const [priceValues, setPriceValues] = useState([] as string[]);
-  const { mintBatchWithoutFees, universalMinter } = useUniversalMinter(chainId);
+  const { mintBatchWithoutFees } = useUniversalMinter(chainId);
   const { address } = useAccount();
   const { chain } = useNetwork();
   const minter =
@@ -70,6 +70,7 @@ const useCollection = ({
 
   useEffect(() => {
     const getValues = async () => {
+      if (drops.length === 0) return;
       const pricesPromises = drops.map((_: any, index: number) => {
         const tokenId = BigNumber.from(index + 1);
         return sale(collectionAddress, tokenId.toString());
@@ -80,8 +81,10 @@ const useCollection = ({
       );
       setPriceValues(values);
     };
+
     getValues();
-  }, [collectionAddress, sale, drops]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minter, drops]);
 
   return { drops, collectAll, priceValues };
 };
