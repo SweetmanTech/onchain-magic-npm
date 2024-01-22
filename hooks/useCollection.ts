@@ -14,62 +14,45 @@ type UseCollectionParams = {
   minterOverride?: string;
 };
 
-const useCollection = ({
-  collectionAddress,
-  chainId,
-  minterOverride,
-}: UseCollectionParams) => {
-  const [drops, setDrops] = useState([] as any);
-  const { mintBatchWithoutFees } = useUniversalMinter(chainId);
-  const { address } = useAccount();
-  const { chain } = useNetwork();
+const useCollection = ({ collectionAddress, chainId, minterOverride }: UseCollectionParams) => {
+  const [drops, setDrops] = useState([] as any)
+  const { mintBatchWithoutFees } = useUniversalMinter(chainId)
+  const { address } = useAccount()
+  const { chain } = useNetwork()
   const minter =
     minterOverride ||
     zoraCreatorFixedPriceSaleStrategyAddress[
       chainId as keyof typeof zoraCreatorFixedPriceSaleStrategyAddress
-    ];
-  const { priceValues } = useZoraFixedPriceSaleStrategy({
-    saleConfig: minter,
-    drops,
-  });
-  const { switchNetwork } = useSwitchNetwork();
+    ]
+  const { priceValues } = useZoraFixedPriceSaleStrategy({ saleConfig: minter, drops })
+  const { switchNetwork } = useSwitchNetwork()
 
   const collectAll = async () => {
     if (chain?.id !== chainId) {
-      switchNetwork?.(chainId);
-      return false;
+      switchNetwork?.(chainId)
+      return false
     }
-    const targets = Array(drops.length).fill(collectionAddress);
-    const calldatas = getCalldatas(
-      drops.length,
-      minter,
-      address as string,
-      address as string
-    );
+    const targets = Array(drops.length).fill(collectionAddress)
+    const calldatas = getCalldatas(drops.length, minter, address as string, address as string)
     const totalValue = priceValues.reduce(
       (total: any, value: any) => total.add(BigNumber.from(value)),
-      BigNumber.from(0)
-    );
-    const response = await mintBatchWithoutFees(
-      targets,
-      calldatas,
-      priceValues,
-      totalValue
-    );
-    return response;
-  };
+      BigNumber.from(0),
+    )
+    const response = await mintBatchWithoutFees(targets, calldatas, priceValues, totalValue)
+    return response
+  }
 
   useEffect(() => {
     const init = async () => {
-      const response = await getNFTsForContract(collectionAddress, chainId);
-      const formattedDrops = getFormattedDrops(response.nfts, chainId);
-      setDrops(formattedDrops);
-    };
+      const response = await getNFTsForContract(collectionAddress, chainId)
+      const formattedDrops = getFormattedDrops(response.nfts, chainId)
+      setDrops(formattedDrops)
+    }
 
-    init();
-  }, [collectionAddress, chainId]);
+    init()
+  }, [collectionAddress, chainId])
 
-  return { drops, collectAll, priceValues };
-};
+  return { drops, collectAll, priceValues }
+}
 
-export default useCollection;
+export default useCollection
