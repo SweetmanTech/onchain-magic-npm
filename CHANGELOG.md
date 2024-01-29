@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.0
+
+### Minor Changes
+
+- daf98c3: I add useCallSale and usePermission hooks.
+
 ## 0.4.5
 
 ### Patch Changes
