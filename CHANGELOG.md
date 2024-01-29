@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.1
+
+### Patch Changes
+
+- I update useZoraFixedPriceSaleStrategy to prevent crashing from missing contract address.
+
 ## 0.5.0
 
 ### Minor Changes
