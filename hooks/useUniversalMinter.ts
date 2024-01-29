@@ -7,32 +7,39 @@ import { useEthersSigner } from "./useEthersSigner";
 
 const useUniversalMinter = (chainId: number = base.id) => {
   const universalMinter =
-    zoraUniversalMinterAddress[chainId as keyof typeof zoraUniversalMinterAddress]
-  const signer = useEthersSigner()
+    zoraUniversalMinterAddress[
+      chainId as keyof typeof zoraUniversalMinterAddress
+    ];
+  const signer = useEthersSigner();
 
   const universalMinterContract = useMemo(
     () => universalMinter && new Contract(universalMinter, abi, signer),
-    [universalMinter, signer],
-  )
+    [universalMinter, signer]
+  );
 
   const mintBatchWithoutFees = async (
     targets: any[],
     calldatas: any[],
     values: any[],
-    value: any,
+    value: any
   ) => {
     try {
-      const tx = await universalMinterContract.mintBatchWithoutFees(targets, calldatas, values, {
-        value,
-      })
-      const receipt = await tx.wait()
-      return receipt
+      const tx = await universalMinterContract.mintBatchWithoutFees(
+        targets,
+        calldatas,
+        values,
+        {
+          value,
+        }
+      );
+      const receipt = await tx.wait();
+      return receipt;
     } catch (error) {
-      return { error }
+      return { error };
     }
-  }
+  };
 
-  return { mintBatchWithoutFees, universalMinter }
-}
+  return { mintBatchWithoutFees, universalMinter };
+};
 
-export default useUniversalMinter
+export default useUniversalMinter;

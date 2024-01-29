@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.2
+
+### Patch Changes
+
+- I update useUniversalMinter to prevent crashing while loading contract.
+
 ## 0.5.1
 
 ### Patch Changes
