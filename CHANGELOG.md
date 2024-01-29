@@ -1,5 +1,17 @@
 # onchain-magic
 
+## 0.5.5
+
+### Patch Changes
+
+- I update types to be more inclusive for BigNumbers in getCallSaleData function."
+
+## 0.5.4
+
+### Patch Changes
+
+- I init getCallSaleData lib.
+
 ## 0.5.3
 
 ### Patch Changes
