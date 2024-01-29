@@ -13,6 +13,7 @@ import getNFTsForContract from "@/lib/alchemy/getNFTsForContract";
 import getFormattedDrops from "@/lib/getFormattedDrops";
 import getDefaultProvider from "@/lib/getDefaultProvider";
 import getCalldatas from "@/lib/getCalldatas";
+import getCallSaleData from "@/lib/zora/getCallSaleData";
 import { ZORA_FEE } from "@/lib/consts";
 
 export {
@@ -39,6 +40,7 @@ export {
 
     // Misc.
     getCalldatas,
+    getCallSaleData,
     getDefaultProvider,
     getEncodedMinterArgs,
     getFormattedDrops
