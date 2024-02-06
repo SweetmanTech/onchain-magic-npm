@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.6
+
+### Patch Changes
+
+- I init getIpfsLink and add export of getAlchemyBaseUrl.
+
 ## 0.5.5
 
 ### Patch Changes
