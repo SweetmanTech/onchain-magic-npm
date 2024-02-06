@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.10
+
+### Patch Changes
+
+- I fix bug in HENO. website by adding chainId param to useZoraFixedPriceSaleStrategy.
+
 ## 0.5.9
 
 ### Patch Changes
