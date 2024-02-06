@@ -1,55 +1,53 @@
 import { Contract } from "ethers";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useEthersSigner } from "./useEthersSigner";
-import abi from "../lib/abi/ZoraCreatorFixedPriceSaleStrategy.json";
-import { ZORA_FEE } from "../lib/consts";
+import abi from "@/lib/abi/ZoraCreatorFixedPriceSaleStrategy.json";
+import { ZORA_FEE } from "@/lib/consts";
+import { mainnet } from "wagmi";
+import getDefaultProvider from "@/lib/getDefaultProvider";
 
 type UseZoraFixedPriceSaleStrategyParams = {
-  saleConfig: string;
-  drops: any[];
-};
+  saleConfig: string
+  drops: any[]
+  chainId?: number
+}
 
 const useZoraFixedPriceSaleStrategy = ({
   saleConfig,
   drops,
+  chainId = mainnet.id,
 }: UseZoraFixedPriceSaleStrategyParams) => {
-  const [priceValues, setPriceValues] = useState([] as string[]);
-  const signer = useEthersSigner();
+  const [priceValues, setPriceValues] = useState([] as string[])
   const saleConfigContract = useMemo(
-    () => saleConfig && new Contract(saleConfig, abi, signer),
-    [saleConfig, signer]
-  );
+    () => saleConfig && new Contract(saleConfig, abi, getDefaultProvider(chainId)),
+    [saleConfig, chainId],
+  )
 
   const sale = useCallback(
     async (tokenContract: string, tokenId: string) => {
       try {
-        if (!saleConfigContract) return;
-        const response = await saleConfigContract.sale(tokenContract, tokenId);
-        return response;
+        if (!saleConfigContract) return false
+        const response = await saleConfigContract.sale(tokenContract, tokenId)
+        return response
       } catch (error) {
-        return error;
+        return error
       }
     },
-    [saleConfigContract]
-  );
+    [saleConfigContract],
+  )
 
   useEffect(() => {
     const getValues = async () => {
-      if (drops.length === 0) return;
-      const pricesPromises = drops.map((drop: any) =>
-        sale(drop.contractAddress, drop.tokenId)
-      );
-      const prices = await Promise.all(pricesPromises);
-      const values = prices.map((price) =>
-        price.pricePerToken.add(ZORA_FEE).toString()
-      );
-      setPriceValues(values);
-    };
+      if (drops.length === 0) return
+      const pricesPromises = drops.map((drop: any) => sale(drop.contractAddress, drop.tokenId))
+      const prices = await Promise.all(pricesPromises)
+      const values = prices.map((price) => price.pricePerToken.add(ZORA_FEE).toString())
+      setPriceValues(values)
+    }
 
-    getValues();
-  }, [drops, sale]);
+    getValues()
+  }, [drops, sale])
 
-  return { sale, priceValues };
-};
+  return { sale, priceValues }
+}
 
-export default useZoraFixedPriceSaleStrategy;
+export default useZoraFixedPriceSaleStrategy

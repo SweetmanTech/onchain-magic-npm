@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.9
+
+### Patch Changes
+
+- update how both useCallSale and usePermission are imported. no more routing through useCollection. direct imports for fewer params on use."
+
 ## 0.5.8
 
 ### Patch Changes

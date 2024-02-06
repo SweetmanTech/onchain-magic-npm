@@ -18,70 +18,55 @@ type UseCollectionParams = {
   minterOverride?: string;
 };
 
-const useCollection = ({
-  collectionAddress,
-  chainId,
-  minterOverride,
-}: UseCollectionParams) => {
-  const [drops, setDrops] = useState([] as any);
-  const { mintBatchWithoutFees } = useUniversalMinter(chainId);
-  const { address } = useAccount();
-  const { chain } = useNetwork();
+const useCollection = ({ collectionAddress, chainId, minterOverride }: UseCollectionParams) => {
+  const [drops, setDrops] = useState([] as any)
+  const { mintBatchWithoutFees } = useUniversalMinter(chainId)
+  const { address } = useAccount()
+  const { chain } = useNetwork()
   const minter =
     minterOverride ||
     zoraCreatorFixedPriceSaleStrategyAddress[
       chainId as keyof typeof zoraCreatorFixedPriceSaleStrategyAddress
-    ];
+    ]
   const { priceValues, sale } = useZoraFixedPriceSaleStrategy({
     saleConfig: minter,
     drops,
-  });
-  const { switchNetwork } = useSwitchNetwork();
-  const signer = useEthersSigner();
+    chainId,
+  })
+  const { switchNetwork } = useSwitchNetwork()
+  const signer = useEthersSigner()
   const collectionContract = useMemo(
     () => collectionAddress && new Contract(collectionAddress, abi, signer),
-    [collectionAddress, signer]
-  );
-  const { addPermission, isAdminOrRole } = usePermission(collectionContract);
-  const { callSale } = useCallSale(collectionContract);
+    [collectionAddress, signer],
+  )
+  const { addPermission, isAdminOrRole } = usePermission(collectionContract)
+  const { callSale } = useCallSale(collectionContract)
 
   const collectAll = async () => {
     if (chain?.id !== chainId) {
-      switchNetwork?.(chainId);
-      return false;
+      switchNetwork?.(chainId)
+      return false
     }
-    const targets = Array(drops.length).fill(collectionAddress);
-    const calldatas = getCalldatas(
-      drops.length,
-      minter,
-      address as string,
-      address as string
-    );
+    const targets = Array(drops.length).fill(collectionAddress)
+    const calldatas = getCalldatas(drops.length, minter, address as string, address as string)
     const totalValue = priceValues.reduce(
       (total: any, value: any) => total.add(BigNumber.from(value || "0")),
-      BigNumber.from(0)
-    );
-    const response = await mintBatchWithoutFees(
-      targets,
-      calldatas,
-      priceValues,
-      totalValue
-    );
-    return response;
-  };
+      BigNumber.from(0),
+    )
+    const response = await mintBatchWithoutFees(targets, calldatas, priceValues, totalValue)
+    return response
+  }
 
   const collectWithRewards = async (
     tokenId: string,
     to: string,
     referral: string,
-    comment = "🪄🪄🪄"
+    comment = "🪄🪄🪄",
   ) => {
-    const response = await sale(collectionAddress, tokenId);
-    const value = BigNumber.from(response.pricePerToken.toString()).add(
-      ZORA_FEE
-    );
-    const minterArguments = getEncodedMinterArgs(to, comment);
-    if (!collectionContract) return;
+    const response = await sale(collectionAddress, tokenId)
+    const value = BigNumber.from(response.pricePerToken.toString()).add(ZORA_FEE)
+    const minterArguments = getEncodedMinterArgs(to, comment)
+    if (!collectionContract) return false
     const tx = await collectionContract.mintWithRewards(
       minter,
       tokenId,
@@ -90,23 +75,23 @@ const useCollection = ({
       referral,
       {
         value,
-      }
-    );
+      },
+    )
 
-    const receipt = await tx.wait();
-    return receipt;
-  };
+    const receipt = await tx.wait()
+    return receipt
+  }
 
   useEffect(() => {
     const init = async () => {
-      if (!collectionAddress) return;
-      const response = await getNFTsForContract(collectionAddress, chainId);
-      const formattedDrops = getFormattedDrops(response.nfts, chainId);
-      setDrops(formattedDrops);
-    };
+      if (!collectionAddress) return
+      const response = await getNFTsForContract(collectionAddress, chainId)
+      const formattedDrops = getFormattedDrops(response.nfts, chainId)
+      setDrops(formattedDrops)
+    }
 
-    init();
-  }, [collectionAddress, chainId]);
+    init()
+  }, [collectionAddress, chainId])
 
   return {
     addPermission,
@@ -116,7 +101,8 @@ const useCollection = ({
     priceValues,
     collectWithRewards,
     isAdminOrRole,
-  };
-};
+  }
+}
 
-export default useCollection;
+export default useCollection
+

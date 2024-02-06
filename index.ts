@@ -6,8 +6,8 @@ import useZoraFixedPriceSaleStrategy from "@/hooks/useZoraFixedPriceSaleStrategy
 import getEncodedMinterArgs from "@/lib/zora/getEncodedMinterArgs";
 import useUniversalMinter from "@/hooks/useUniversalMinter";
 import useCollection from "@/hooks/useCollection";
-import usePermission from "@/hooks/useCollection";
-import useCallSale from "@/hooks/useCollection";
+import usePermission from "@/hooks/usePermission";
+import useCallSale from "@/hooks/useCallSale";
 import useErc20FixedPriceSaleStrategy from "./hooks/useErc20FixedPriceSaleStrategy";
 import getAlchemyBaseUrl from "@/lib/alchemy/getAlchemyBaseUrl";
 import getNFTsForContract from "@/lib/alchemy/getNFTsForContract";
