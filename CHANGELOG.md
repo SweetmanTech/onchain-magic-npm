@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.8
+
+### Patch Changes
+
+- I update useCallSale & usePermission params.
+
 ## 0.5.7
 
 ### Patch Changes
