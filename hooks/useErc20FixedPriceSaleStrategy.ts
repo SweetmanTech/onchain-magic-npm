@@ -1,23 +1,24 @@
 import { Contract } from "ethers";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useEthersSigner } from "./useEthersSigner";
-import abi from "../lib/abi/ZoraCreatorFixedPriceSaleStrategy.json";
-import { ZORA_FEE } from "../lib/consts";
+import abi from "@/lib/abi/ERC20FixedPriceSaleStrategy.json";
+import getDefaultProvider from "@/lib/getDefaultProvider";
 
-type UseZoraFixedPriceSaleStrategyParams = {
+type UseErc20FixedPriceSaleStrategyParams = {
   saleConfig: string;
   drops: any[];
+  chainId: number;
 };
 
-const useZoraFixedPriceSaleStrategy = ({
+const useErc20FixedPriceSaleStrategy = ({
   saleConfig,
   drops,
-}: UseZoraFixedPriceSaleStrategyParams) => {
+  chainId,
+}: UseErc20FixedPriceSaleStrategyParams) => {
   const [priceValues, setPriceValues] = useState([] as string[]);
-  const signer = useEthersSigner();
   const saleConfigContract = useMemo(
-    () => saleConfig && new Contract(saleConfig, abi, signer),
-    [saleConfig, signer]
+    () =>
+      saleConfig && new Contract(saleConfig, abi, getDefaultProvider(chainId)),
+    [saleConfig, chainId]
   );
 
   const sale = useCallback(
@@ -40,9 +41,7 @@ const useZoraFixedPriceSaleStrategy = ({
         sale(drop.contractAddress, drop.tokenId)
       );
       const prices = await Promise.all(pricesPromises);
-      const values = prices.map((price) =>
-        price.pricePerToken.add(ZORA_FEE).toString()
-      );
+      const values = prices.map((price) => price.pricePerToken.toString());
       setPriceValues(values);
     };
 
@@ -52,4 +51,4 @@ const useZoraFixedPriceSaleStrategy = ({
   return { sale, priceValues };
 };
 
-export default useZoraFixedPriceSaleStrategy;
+export default useErc20FixedPriceSaleStrategy;

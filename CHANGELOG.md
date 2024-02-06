@@ -1,5 +1,89 @@
 # onchain-magic
 
+## 0.5.7
+
+### Patch Changes
+
+- I push missing exports.
+
+## 0.5.6
+
+### Patch Changes
+
+- I init getIpfsLink and add export of getAlchemyBaseUrl.
+
+## 0.5.5
+
+### Patch Changes
+
+- I update types to be more inclusive for BigNumbers in getCallSaleData function."
+
+## 0.5.4
+
+### Patch Changes
+
+- I init getCallSaleData lib.
+
+## 0.5.3
+
+### Patch Changes
+
+- I add useErc20FixedPriceSaleStrategy and getDefaultProvider.
+
+## 0.5.2
+
+### Patch Changes
+
+- I update useUniversalMinter to prevent crashing while loading contract.
+
+## 0.5.1
+
+### Patch Changes
+
+- I update useZoraFixedPriceSaleStrategy to prevent crashing from missing contract address.
+
+## 0.5.0
+
+### Minor Changes
+
+- daf98c3: I add useCallSale and usePermission hooks.
+
+## 0.4.5
+
+### Patch Changes
+
+- I migrate retrieval of price information from usecollection => useZoraFixedPriceSaleStrategy for more efficient useEffect without infinite loops.
+
+## 0.4.4
+
+### Patch Changes
+
+- I update useEffect dependency array to be more efficient. remove infinite loops.
+
+## 0.4.3
+
+### Patch Changes
+
+- I add priceValues export from a useEffect to speed up call to collectAll by gathering price info in the background.
+
+## 0.4.2
+
+### Patch Changes
+
+- I add universalMinter to useUniversalMinter export."
+
+## 0.4.1
+
+### Patch Changes
+
+- I build.
+
+## 0.4.0
+
+### Minor Changes
+
+- 0f7baad: I add package exports for getNFTsForContract, getFormattedDrops, getCalldatas & ZORA_FEE.
+
 ## 0.3.1
 
 ### Patch Changes

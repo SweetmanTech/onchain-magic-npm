@@ -13,7 +13,7 @@ const useUniversalMinter = (chainId: number = base.id) => {
   const signer = useEthersSigner();
 
   const universalMinterContract = useMemo(
-    () => new Contract(universalMinter, abi, signer),
+    () => universalMinter && new Contract(universalMinter, abi, signer),
     [universalMinter, signer]
   );
 
@@ -39,7 +39,7 @@ const useUniversalMinter = (chainId: number = base.id) => {
     }
   };
 
-  return { mintBatchWithoutFees };
+  return { mintBatchWithoutFees, universalMinter };
 };
 
 export default useUniversalMinter;
