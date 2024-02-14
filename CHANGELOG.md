@@ -1,5 +1,29 @@
 # onchain-magic
 
+## 0.5.11
+
+### Patch Changes
+
+- I update getDefaultProvider to work for OP mainnet & OP goerli networks.
+
+## 0.5.10
+
+### Patch Changes
+
+- I fix bug in HENO. website by adding chainId param to useZoraFixedPriceSaleStrategy.
+
+## 0.5.9
+
+### Patch Changes
+
+- update how both useCallSale and usePermission are imported. no more routing through useCollection. direct imports for fewer params on use."
+
+## 0.5.8
+
+### Patch Changes
+
+- I update useCallSale & usePermission params.
+
 ## 0.5.7
 
 ### Patch Changes

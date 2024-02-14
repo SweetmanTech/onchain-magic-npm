@@ -1,29 +1,32 @@
 import { Contract } from "ethers";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useEthersSigner } from "./useEthersSigner";
-import abi from "../lib/abi/ZoraCreatorFixedPriceSaleStrategy.json";
-import { ZORA_FEE } from "../lib/consts";
+import abi from "@/lib/abi/ZoraCreatorFixedPriceSaleStrategy.json";
+import { ZORA_FEE } from "@/lib/consts";
+import { mainnet } from "wagmi";
+import getDefaultProvider from "@/lib/getDefaultProvider";
 
 type UseZoraFixedPriceSaleStrategyParams = {
   saleConfig: string;
   drops: any[];
+  chainId?: number;
 };
 
 const useZoraFixedPriceSaleStrategy = ({
   saleConfig,
   drops,
+  chainId = mainnet.id,
 }: UseZoraFixedPriceSaleStrategyParams) => {
   const [priceValues, setPriceValues] = useState([] as string[]);
-  const signer = useEthersSigner();
   const saleConfigContract = useMemo(
-    () => saleConfig && new Contract(saleConfig, abi, signer),
-    [saleConfig, signer]
+    () =>
+      saleConfig && new Contract(saleConfig, abi, getDefaultProvider(chainId)),
+    [saleConfig, chainId]
   );
 
   const sale = useCallback(
     async (tokenContract: string, tokenId: string) => {
       try {
-        if (!saleConfigContract) return;
+        if (!saleConfigContract) return false;
         const response = await saleConfigContract.sale(tokenContract, tokenId);
         return response;
       } catch (error) {

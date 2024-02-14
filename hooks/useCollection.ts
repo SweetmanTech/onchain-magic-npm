@@ -35,6 +35,7 @@ const useCollection = ({
   const { priceValues, sale } = useZoraFixedPriceSaleStrategy({
     saleConfig: minter,
     drops,
+    chainId,
   });
   const { switchNetwork } = useSwitchNetwork();
   const signer = useEthersSigner();
@@ -81,7 +82,7 @@ const useCollection = ({
       ZORA_FEE
     );
     const minterArguments = getEncodedMinterArgs(to, comment);
-    if (!collectionContract) return;
+    if (!collectionContract) return false;
     const tx = await collectionContract.mintWithRewards(
       minter,
       tokenId,
