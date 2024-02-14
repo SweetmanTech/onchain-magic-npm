@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.11
+
+### Patch Changes
+
+- I update getDefaultProvider to work for OP mainnet & OP goerli networks.
+
 ## 0.5.10
 
 ### Patch Changes
