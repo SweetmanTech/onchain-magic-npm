@@ -6,7 +6,7 @@ import {
   polygon,
   sepolia,
   optimism,
-  optimismGoerli
+  optimismGoerli,
 } from "@wagmi/core/chains";
 
 const ETH = "https://eth-mainnet.g.alchemy.com/";
