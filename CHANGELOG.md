@@ -1,5 +1,11 @@
 # onchain-magic
 
+## 0.5.12
+
+### Patch Changes
+
+- I forgot to simple build.
+
 ## 0.5.11
 
 ### Patch Changes
